@@ -1,4 +1,4 @@
-<?php include_once "db.php"; ?>
+<?php include_once "db.php";?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,12 +20,16 @@
     </div>
 
     <header class="container">
-        <img src="" alt="">
+    <?php
+    $img=$Title->find(['sh'=>1]);
+    // dd($img);
+    ?>
+    <img src="./img/<?=$img['img'];?>" alt="">
     </header>
-    <main class="container-fluid">
+    <main class="container">
         <h3 class="text-center">網站標題管理</h3>
         <hr>
-        <form action="" method="post">
+        <form action="./edit_title.php" method="post">
             <table class="table table-bordered text-center">
                 <tr>
                     <td>網站標題</td>
@@ -37,13 +41,13 @@
 
                 <?php
                 $rows = $Title->all();
-                foreach ($rows as $row) {
+                foreach($rows as $row){
                 ?>
                     <tr>
                         <td><img src="./img/<?=$row['img'];?>" style="width:300px;height:30px"></td>
                         <td><input type="text" name="text[]" id="" value="<?=$row['text'];?>" style="width:90%"></td>
-                        <td><input type="radio" name="sh" id=""></td>
-                        <td><input type="checkbox" name="del[]" id="" val="<?=$row['id']?>"></td>
+                        <td><input type="radio" name="sh" id="" value="<?=$row['id'];?>" <?=($row['sh']==1)?'checked':'';?>></td>
+                        <td><input type="checkbox" name="del[]" id="" value="<?=$row['id'];?>"></td>
                         <td><input class="btn btn-primary" type="button" value="更新圖片"></td>
                         <!-- button標籤預設是input:submit但我們沒有要送出表單 -->
                         <input type="hidden" name="id[]" value="<?=$row['id'];?>">
