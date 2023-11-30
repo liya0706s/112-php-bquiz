@@ -21,6 +21,7 @@
 
     <header class="container">
     <?php
+    // $Title是從db.php來的
     $img=$Title->find(['sh'=>1]);
     // dd($img);
     ?>
@@ -40,8 +41,10 @@
                 </tr>
 
                 <?php
+                // 這一列取所有的值，一筆一筆的資料
                 $rows = $Title->all();
                 foreach($rows as $row){
+                // 每一個陣列裡的都給 $row這個變數
                 ?>
                     <tr>
                         <td><img src="./img/<?=$row['img'];?>" style="width:300px;height:30px"></td>

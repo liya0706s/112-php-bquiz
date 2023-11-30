@@ -147,5 +147,6 @@ function dd($array)
 
 
 $Title=new DB('titles');
+// 建立一個用於操作名為 'titles' 的資料表的 DB 物件實例
 
 ?>
