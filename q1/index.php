@@ -1,3 +1,4 @@
+<?php include_once "db.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,14 +34,24 @@
                     <td>刪除</td>
                     <td></td>
                 </tr>
-                <tr>
-                    <td><img src="" style="width:300px;height:30px"></td>
-                    <td><input type="text" name="" id="" style="width:90%"></td>
-                    <td><input type="radio" name="" id=""></td>
-                    <td><input type="checkbox" name="" id=""></td>
-                    <td><input class="btn btn-primary" type="button" value="更新表單"></td>
-                    <!-- button標籤預設是input:submit但我們沒有要送出表單 -->
-                </tr>
+
+                <?php
+                $rows = $Title->all();
+                foreach ($rows as $row) {
+                ?>
+
+                    <tr>
+                        <td><img src="./img/<?=$row['img'];?>" style="width:300px;height:30px"></td>
+                        <td><input type="text" name="" id="" value="<?=$row['text'];?>" style="width:90%"></td>
+                        <td><input type="radio" name="" id=""></td>
+                        <td><input type="checkbox" name="" id=""></td>
+                        <td><input class="btn btn-primary" type="button" value="更新表單"></td>
+                        <!-- button標籤預設是input:submit但我們沒有要送出表單 -->
+                    </tr>
+                <?php
+                }
+                ?>
+
             </table>
             <div class="d-flex justify-content-between">
                 <!-- view寫的東西會載入cvr -->
