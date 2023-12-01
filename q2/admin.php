@@ -26,10 +26,11 @@
                 </div>
                 <!-- 選項 -->
                 <div class="bg-light">
-                    <div class="p-2">
+                    <div class="p-2" id="option">
                         <label for="">選項</label>
                         <input type="text" name="opt[]">
-                        <input type="button" value="更多">
+                        <input type="button" value="更多" onclick="more()">
+                        <!-- onclick時執行more()這個函數程式 -->
                     </div>
                 </div>
                 <div class="mt-3">
@@ -47,3 +48,15 @@
 </body>
 
 </html>
+<!-- 用js做增加更多選項 -->
+<script>
+    function more() {
+        // 用上引號，新增的一塊還是字串
+        let opt = `<div class="p-2">
+                        <label for="">選項</label>
+                        <input type="text" name="opt[]">
+                    </div>`
+                // 在option這個id前面放一個opt
+                $("#option").before(opt)
+    }
+</script>
