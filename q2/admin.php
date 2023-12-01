@@ -1,3 +1,4 @@
+<?php include_once "db.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +17,8 @@
     <main class="container p-3">
         <fieldset>
             <legend>新增問卷</legend>
-            <form action="add_que.php" method="post">
+
+            <form action="./api/add_que.php" method="post">
                 <!-- 名稱 -->
                 <div class="d-flex">
                     <div class="col-3 bg-light p-2">問卷名稱</div>
@@ -30,7 +32,7 @@
                         <label for="">選項</label>
                         <input type="text" name="opt[]">
                         <input type="button" value="更多" onclick="more()">
-                        <!-- onclick時執行more()這個函數程式 -->
+                        <!-- "更多"按鈕 onclick時執行more()這個函數程式 -->
                     </div>
                 </div>
                 <div class="mt-3">
@@ -38,6 +40,39 @@
                     <input type="reset" value="清空">
                 </div>
             </form>
+        </fieldset>
+
+        <fieldset>
+            <legend>問卷列表</legend>
+            <div class="col-9">
+                <table class="container">
+                    <tr>
+                        <th>編號</th>
+                        <th>主題內容</th>
+                        <th>操作</th>
+                    </tr>
+                    <?php
+                    // 列出題目
+                    $ques = $Que->all(['subject_id' => 0]);
+                    foreach ($ques as $idx => $que) {
+                    ?>
+                        <tr>
+                            <!-- 讓編號從1開始,而非0 -->
+                            <td><?= $idx+1; ?></td>
+                            <td><?= $que['text'] ?></td>
+                            <td>
+                                <button class="btn btn-info">顯示</button>
+                                <button class="btn btn-success">編輯</button>
+                                <a href="./api/del.php?id=<?= $que['id'] ?>">
+                                    <button class="btn btn-danger">刪除</button>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php
+                    }
+                    ?>
+                </table>
+            </div>
         </fieldset>
 
 
@@ -56,7 +91,7 @@
                         <label for="">選項</label>
                         <input type="text" name="opt[]">
                     </div>`
-                // 在option這個id前面放一個opt
-                $("#option").before(opt)
+        // 在option這個id前面放一個opt
+        $("#option").before(opt);
     }
 </script>
