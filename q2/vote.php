@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>問卷投票</title>
+    <title>問卷投票1111</title>
     <link rel="stylesheet" href="../css/bootstrap.css">
 </head>
 
@@ -15,32 +15,32 @@
     </header>
     <main class="container">
         <?php
-        $subject = $Que->find($_GET['id']);
+        $subject=$Que->find($_GET['id']);
         ?>
-        <h2 class="text-center"><?= $subject['text'] ?></h2>
-        <form action="add_vote.php">
-            <ul class="list-group col-6 mx-auto">
-                <?php
-                $opts = $Que->all(['subject_id' => $_GET['id']]);
-                // subject_id = $_GET id
-                foreach ($opts as $idx => $opt) {
-                ?>
+            <h2 class="text-center"><?=$subject['text'];?></h2>
+            <form action="./api/vote.php" method="post">
+                <ul class="list-group col-6 mx-auto">
+                    <?php
+                    $opts=$Que->all(['subject_id'=>$_GET['id']]);
+                    foreach($opts as $idx => $opt){
+                    ?>
 
-                    <li class="list-group-item ">
-                        <input type="radio" name="opt" id="<?= $opt['id'] ?>">
-                        <?= $opt['text'] ?>
-                    </li>
-                <?php
-                }
-                ?>
-            </ul>
-            <input type="submit" value="我要投票" class="btn btn-primary d-block">
-        </form>
+                        <li class="list-group-item list-group-item-action">
+                            <input type="radio" name="opt" value="<?=$opt['id'];?>">
+                            <?=$opt['text'];?>
+                        </li>
+                    <?php
+                    }
+                    ?>
+
+                </ul>
+                <input type="submit" value="我要投票" class="btn btn-primary d-block mx-auto my-5">
+            </form>
+    </main>
 
 
-
-        <script src="../js/jquery-3.4.1.min.js"></script>
-        <script src="../js/bootstrap.js"></script>
+            <script src="../js/jquery-3.4.1.min.js"></script>
+            <script src="../js/bootstrap.js"></script>
 </body>
 
 </html>

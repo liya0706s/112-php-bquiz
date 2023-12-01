@@ -53,17 +53,17 @@
                     </tr>
                     <?php
                     // 列出題目
-                    $ques = $Que->all(['subject_id' => 0]);
-                    foreach ($ques as $idx => $que) {
+                    $ques=$Que->all(['subject_id'=>0]);
+                    foreach($ques as $idx => $que){
                     ?>
                         <tr>
                             <!-- 讓編號從1開始,而非0 -->
-                            <td><?= $idx+1; ?></td>
-                            <td><?= $que['text'] ?></td>
+                            <td><?=$idx+1;?></td>
+                            <td><?=$que['text'];?></td>
                             <td>
                                 <button class="btn btn-info">顯示</button>
                                 <button class="btn btn-success">編輯</button>
-                                <a href="./api/del.php?id=<?= $que['id'] ?>">
+                                <a href="./api/del.php?id=<?=$que['id'];?>">
                                     <button class="btn btn-danger">刪除</button>
                                 </a>
                             </td>

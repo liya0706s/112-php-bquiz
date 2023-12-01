@@ -147,6 +147,5 @@ function dd($array)
 
 
 $Que=new DB('que');
-// 建立一個用於操作名為 'que' 的資料表的 DB 物件實例
 
 ?>
