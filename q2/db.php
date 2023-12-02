@@ -57,47 +57,49 @@ class DB{
         }
         //echo 'find=>'.$sql;
         $row = $this->pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+        // 執行查詢並回傳結果
         return $row;
     }
     
     function save($array){
         if(isset($array['id'])){
-            $sql = "update `$this->table` set ";
+            $sql = "update `$this->table` set ";  // 編輯資料
     
             if (!empty($array)) {
-                $tmp = $this->a2s($array);
+                $tmp = $this->a2s($array); // 將陣列轉換成 SQL 語句的一部分
             } else {
                 echo "錯誤:缺少要編輯的欄位陣列";
             }
         
-            $sql .= join(",", $tmp);
-            $sql .= " where `id`='{$array['id']}'";
+            $sql .= join(",", $tmp); // 串接 SQL 語句
+            $sql .= " where `id`='{$array['id']}'";  // 以 id 為條件
         }else{
-            $sql = "insert into `$this->table` ";
+            $sql = "insert into `$this->table` "; // 新增資料
             $cols = "(`" . join("`,`", array_keys($array)) . "`)";
-            $vals = "('" . join("','", $array) . "')";
+            // 取得所有欄位名稱
+            $vals = "('" . join("','", $array) . "')"; // 取得所有欄位的值
         
-            $sql = $sql . $cols . " values " . $vals;
+            $sql = $sql . $cols . " values " . $vals; // 串接 SQL 語句
         }
 
-        return $this->pdo->exec($sql);
+        return $this->pdo->exec($sql);  // 執行 SQL 語句
     }
 
     function del($id)
     {
-        $sql = "delete from `$this->table` where ";
+        $sql = "delete from `$this->table` where ";  // 刪除資料
     
         if (is_array($id)) {
-            $tmp = $this->a2s($id);
-            $sql .= join(" && ", $tmp);
+            $tmp = $this->a2s($id);  // 將陣列轉換成 SQL 條件語句的一部分
+            $sql .= join(" && ", $tmp); // 加入條件
         } else if (is_numeric($id)) {
-            $sql .= " `id`='$id'";
+            $sql .= " `id`='$id'";  // 以 id 為條件
         } else {
             echo "錯誤:參數的資料型態比須是數字或陣列";
         }
         //echo $sql;
     
-        return $this->pdo->exec($sql);
+        return $this->pdo->exec($sql);  // 執行 SQL 語句
     }
     
     /**
@@ -105,12 +107,12 @@ class DB{
      */
     function q($sql){
         return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-
+        // 執行輸入的 SQL 語句，一次取回多筆
     }
 
     private function a2s($array){
         foreach ($array as $col => $value) {
-            $tmp[] = "`$col`='$value'";
+            $tmp[] = "`$col`='$value'"; // 將陣列轉換成 SQL 語句的一部分
         }
         return $tmp;
     }
@@ -122,14 +124,14 @@ class DB{
             if (is_array($array)) {
     
                 if (!empty($array)) {
-                    $tmp = $this->a2s($array);
-                    $sql .= " where " . join(" && ", $tmp);
+                    $tmp = $this->a2s($array);  // 將陣列轉換成 SQL 條件語句的一部分
+                    $sql .= " where " . join(" && ", $tmp); // 加入條件
                 }
             } else {
-                $sql .= " $array";
+                $sql .= " $array";  // 加入其他的 SQL 語句
             }
     
-            $sql .= $other;
+            $sql .= $other; // 加入其他的 SQL 語句
             // echo 'all=>'.$sql;
             // $rows = $this->pdo->query($sql)->fetchColumn();
             return $sql;
@@ -149,5 +151,6 @@ function dd($array)
 
 
 $Que=new DB('que');
+// 創建一個 DB 實例，資料表名稱為 'que'
 
 ?>
