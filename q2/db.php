@@ -1,55 +1,57 @@
 <?php 
-date_default_timezone_set("Asia/Taipei");
-session_start();
+date_default_timezone_set("Asia/Taipei");  // 設定預設時區為亞洲/台北
+session_start();  // 啟動 PHP Session
 class DB{
 
     protected $dsn = "mysql:host=localhost;charset=utf8;dbname=bquiz";
-    protected $pdo;
-    protected $table;
+    // 資料庫連線設定，包括主機名、編碼方式、資料表名稱
+    protected $pdo;  // PDO 實例
+    protected $table;  
     
     public function __construct($table)
     {
-        $this->table=$table;
-        $this->pdo=new PDO($this->dsn,'root','');
+        $this->table=$table; // 設定資料表名稱
+        $this->pdo=new PDO($this->dsn,'root','');  // 透過 PDO 建立資料庫連線
     }
 
 
     function all( $where = '', $other = '')
     {
-        $sql = "select * from `$this->table` ";
-        $sql =$this->sql_all($sql,$where,$other);
+        $sql = "select * from `$this->table` ";  // 基本的 SQL 查詢語句
+        $sql =$this->sql_all($sql,$where,$other);  // 處理額外的條件和語句
         return  $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+        // 執行查詢並回傳結果陣列
     }
 
     function count( $where = '', $other = ''){
-        $sql = "select count(*) from `$this->table` ";
-        $sql=$this->sql_all($sql,$where,$other);
-        return  $this->pdo->query($sql)->fetchColumn(); 
+        $sql = "select count(*) from `$this->table` ";  // 計算資料表中的記錄總數
+        $sql=$this->sql_all($sql,$where,$other);  // 處理額外的條件和語句
+        return  $this->pdo->query($sql)->fetchColumn();  // 執行查詢並回傳結果的列數
     }
     private function math($math,$col,$array='',$other=''){
-        $sql="select $math(`$col`)  from `$this->table` ";
-        $sql=$this->sql_all($sql,$array,$other);
-        return $this->pdo->query($sql)->fetchColumn();
+        $sql="select $math(`$col`)  from `$this->table` ";  // 執行數學函數操作（如sum、max、min）
+        $sql=$this->sql_all($sql,$array,$other);  // 處理額外的條件和語句
+        return $this->pdo->query($sql)->fetchColumn();  // 執行查詢並回傳結果
     }
     function sum($col='', $where = '', $other = ''){
-        return  $this->math('sum',$col,$where,$other);
+        return  $this->math('sum',$col,$where,$other);  // 計算指定欄位的總和
     }
     function max($col, $where = '', $other = ''){
-        return  $this->math('max',$col,$where,$other);
+        return  $this->math('max',$col,$where,$other);  // 取得指定欄位的最大值
     }  
     function min($col, $where = '', $other = ''){
-        return  $this->math('min',$col,$where,$other);
+        return  $this->math('min',$col,$where,$other);  // 取得指定欄位的最小值
     }  
     
     function find($id)
     {
-        $sql = "select * from `$this->table` ";
+        $sql = "select * from `$this->table` ";  // 查詢所有欄位的資料
     
         if (is_array($id)) {
-            $tmp = $this->a2s($id);
-            $sql .= " where " . join(" && ", $tmp);
+            $tmp = $this->a2s($id);  // 將陣列轉換成 SQL 條件語句的一部分
+            $sql .= " where " . join(" && ", $tmp);  // 加入條件
         } else if (is_numeric($id)) {
-            $sql .= " where `id`='$id'";
+            $sql .= " where `id`='$id'";  // 以 id 為條件查詢
         } else {
             echo "錯誤:參數的資料型態比須是數字或陣列";
         }

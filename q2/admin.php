@@ -42,7 +42,7 @@
             </form>
         </fieldset>
 
-        <fieldset>
+        <fieldset class="mt-3">
             <legend>問卷列表</legend>
             <div class="col-9">
                 <table class="container">
@@ -65,6 +65,8 @@
                                 class="btn <?=($que['sh']==1)?'btn-info':'btn-secondary';?>">
                                 <!-- 顯示/隱藏按鈕不同顏色 -->
                                 <?=($que['sh']==1)?'顯示':'隱藏';?>
+                                <!-- 檢查 $que 陣列中的 'sh' 元素是否等於 1。 -->
+                                <!-- 如果這個條件成立，就會返回 '顯示'，否則返回 '隱藏' -->
                                 </a>
                                 <button class="btn btn-success">編輯</button>
                                 <a href="./api/del.php?id=<?=$que['id'];?>">
