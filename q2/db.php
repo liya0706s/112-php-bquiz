@@ -111,7 +111,7 @@ class DB{
 
     private function a2s($array){
         foreach ($array as $col => $value) {  // 使用 foreach 遍歷陣列，將每個鍵值對串接到 $tmp 陣列
-            $tmp[] = "`$col`='$value'"; // 將陣列轉換成 SQL 語句的一部分
+            $tmp[] = "`$col`='$value'"; // 將"陣列"轉換成 SQL 語句的一部分
         }
         return $tmp;  // 返回包含所有鍵值對轉換成的 SQL 語句片段的陣列
     }
@@ -141,6 +141,9 @@ class DB{
 
 }
 
+// dd跟資料庫沒有關係，放在外面。
+// 另一種全域function的應用，整個程式都可以用的，不屬於任何一個物件
+// 整個系統都可以用到的
 function dd($array)
 {
     echo "<pre>";

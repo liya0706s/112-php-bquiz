@@ -41,20 +41,23 @@
                 </tr>
 
                 <?php
-                // 這一列取所有的值，一筆一筆的資料
                 $rows = $Title->all();
+                // 撈出title資料表所有的資料
                 foreach($rows as $row){
-                // 每一個陣列裡的都給 $row這個變數
+                // 一筆一筆的資料都給 $row這個變數
                 ?>
                     <tr>
                         <td><img src="./img/<?=$row['img'];?>" style="width:300px;height:30px"></td>
+                        <!-- 位置是哪一張圖是由資料庫決定 $row['img'] -->
                         <td><input type="text" name="text[]" id="" value="<?=$row['text'];?>" style="width:90%"></td>
+                        <!-- 用陣列的方式存取替代文字text[] -->
                         <td><input type="radio" name="sh" id="" value="<?=$row['id'];?>" <?=($row['sh']==1)?'checked':'';?>></td>
                         <!-- 三元運算式:如果sh是1就顯示，否則隱藏 -->
                         <td><input type="checkbox" name="del[]" id="" value="<?=$row['id'];?>"></td>
                         <td><input class="btn btn-primary" type="button" value="更新圖片" onclick="op('#cover','#cvr','upload_title.php?id=<?=$row['id'];?>')"></td>
                         <!-- button標籤預設是input:submit但我們沒有要送出表單 -->
                         <input type="hidden" name="id[]" value="<?=$row['id'];?>">
+                        <!-- 多筆資料id[]陣列 -->
                     </tr>
                 <?php
                 }

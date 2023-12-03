@@ -1,6 +1,7 @@
 <h3 class="text-center">新增標題區圖片</h3>
 <hr>
 <form action="./add_title.php" method="post" enctype="multipart/form-data">
+    <!-- add_title.php 看看新增檔案有沒有成功 -->
     <table class="col-8 m-auto">
         <tr>
             <td>標題區圖片:</td>
