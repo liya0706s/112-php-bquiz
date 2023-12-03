@@ -4,13 +4,13 @@ session_start();  // 啟動 PHP Session
 class DB{
 
     protected $dsn = "mysql:host=localhost;charset=utf8;dbname=bquiz";
-    // 資料庫連線設定，包括主機名、編碼方式、資料表名稱
+    // 資料庫連線設定，包括主機名、編碼方式、資料表名稱(適時調整)
     protected $pdo;  // PDO 實例
     protected $table;  
     
-    public function __construct($table)
+    public function __construct($table) // 建構式就是初始化，類別宣告出來第一件做的事
     {
-        $this->table=$table; // 設定資料表名稱
+        $this->table=$table; // 設定資料表名稱，將物件內部的table值設為帶入的$table
         $this->pdo=new PDO($this->dsn,'root','');  // 透過 PDO 建立資料庫連線
     }
 
@@ -103,7 +103,8 @@ class DB{
     }
     
     /**
-     * 可輸入各式SQL語法字串並直接執行
+     * 可輸入各式原生SQL語法字串並直接執行，例如更複雜的，子查詢和聚合函數等等
+     * q=query
      */
     function q($sql){
         return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);

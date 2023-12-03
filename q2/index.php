@@ -14,8 +14,8 @@
         <h1 class="text-center">問卷調查</h1>
     </header>
     <main class="container">
-        <fieldset>
-            <legend>目前位置：首頁 > 問卷調查</legend>
+        <fieldset class="">
+            <legend class="">目前位置：首頁 > 問卷調查</legend>
             <table class="table">
                 <tr class="text-center">
                     <th>編號</th>
