@@ -15,18 +15,17 @@ class DB{
     }
 
 
-    function all( $where = '', $other = '')
-    {
+    function all( $where = '', $other = ''){
         $sql = "select * from `$this->table` ";  // 基本的 SQL 查詢語句
         $sql =$this->sql_all($sql,$where,$other);  // 處理額外的條件和語句
-        return  $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+        return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         // 執行查詢並回傳結果陣列
     }
 
     function count( $where = '', $other = ''){
         $sql = "select count(*) from `$this->table` ";  // 計算資料表中的記錄總數
         $sql=$this->sql_all($sql,$where,$other);  // 處理額外的條件和語句
-        return  $this->pdo->query($sql)->fetchColumn();  // 執行查詢並回傳結果的列數
+        return $this->pdo->query($sql)->fetchColumn();  // 執行查詢並回傳結果的"列數"
     }
     private function math($math,$col,$array='',$other=''){
         $sql="select $math(`$col`)  from `$this->table` ";  // 執行數學函數操作（如sum、max、min）
@@ -43,8 +42,7 @@ class DB{
         return  $this->math('min',$col,$where,$other);  // 取得指定欄位的最小值
     }  
     
-    function find($id)
-    {
+    function find($id){
         $sql = "select * from `$this->table` ";  // 查詢所有欄位的資料
     
         if (is_array($id)) {
@@ -112,10 +110,10 @@ class DB{
     }
 
     private function a2s($array){
-        foreach ($array as $col => $value) {
+        foreach ($array as $col => $value) {  // 使用 foreach 遍歷陣列，將每個鍵值對串接到 $tmp 陣列
             $tmp[] = "`$col`='$value'"; // 將陣列轉換成 SQL 語句的一部分
         }
-        return $tmp;
+        return $tmp;  // 返回包含所有鍵值對轉換成的 SQL 語句片段的陣列
     }
 
     private function sql_all($sql,$array,$other){
